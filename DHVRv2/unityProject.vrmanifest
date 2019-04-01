@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.dhvrv2.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Unity Projects\\DHVRv2 Code\\DHVRv2\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "DHVRv2 [Testing]"
+        }
+      }
+    }
+  ]
+}
