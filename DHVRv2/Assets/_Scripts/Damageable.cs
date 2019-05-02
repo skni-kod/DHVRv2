@@ -5,32 +5,32 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour {
 
-    public float m_MaxHealth = 1;
+    public float _maxHealth = 1;
 
-    public UnityEvent m_OnDeath;
+    public UnityEvent _onDeath;
 
-    private float m_CurrentHealth;
-    private bool m_IsDead;
+    private float _currentHealth;
+    private bool _isDead;
 
     private void Awake() {
-        m_CurrentHealth = m_MaxHealth;
+        _currentHealth = _maxHealth;
     }
 
     public void Damage(float dmg) {
-        if(m_IsDead)
+        if(_isDead)
             return;
         
-        m_CurrentHealth -= dmg;
+        _currentHealth -= dmg;
 
-        if (m_CurrentHealth <= 0) {
+        if (_currentHealth <= 0) {
             Death();
         }
     }
 
     void Death() {
-        m_IsDead = true;
+        _isDead = true;
         
-        m_OnDeath.Invoke();
+        _onDeath.Invoke();
         Destroy(gameObject);
     }
 }
