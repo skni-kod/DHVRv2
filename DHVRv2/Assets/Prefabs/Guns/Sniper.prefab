@@ -399,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8939933690337861750}
   - component: {fileID: 283322424712907487}
-  - component: {fileID: 8484191465186117886}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -464,14 +463,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8484191465186117886
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8823726361297570896}
-  m_Enabled: 1
 --- !u!1001 &7679237387412293080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -491,12 +482,12 @@ PrefabInstance:
     - target: {fileID: 8681552997491354157, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.531
       objectReference: {fileID: 0}
     - target: {fileID: 8681552997491354157, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.054
       objectReference: {fileID: 0}
     - target: {fileID: 8681552997491354157, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
@@ -618,11 +609,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: bafe1e4d156ffe945aa89b304a97f261, type: 3}
-      propertyPath: m_LocalScale.y
+      propertyPath: m_LocalScale.x
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: bafe1e4d156ffe945aa89b304a97f261, type: 3}
-      propertyPath: m_LocalScale.x
+      propertyPath: m_LocalScale.y
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: bafe1e4d156ffe945aa89b304a97f261, type: 3}

@@ -36,6 +36,8 @@ namespace Valve.VR.InteractionSystem
 		[Tooltip( "When detaching the object, should it return to its original parent?" )]
 		public bool restoreOriginalParent = false;
 
+        public bool toggleGrab;
+
         
 
 		protected VelocityEstimator velocityEstimator;
@@ -208,18 +210,26 @@ namespace Valve.VR.InteractionSystem
         protected virtual void HandAttachedUpdate(Hand hand)
         {
 
+            if(!toggleGrab) {
+                if (hand.IsGrabEnding(this.gameObject))
+                {
+                    hand.DetachObject(gameObject, restoreOriginalParent);
 
-            if (hand.IsGrabEnding(this.gameObject))
-            {
-                hand.DetachObject(gameObject, restoreOriginalParent);
+                    // Uncomment to detach ourselves late in the frame.
+                    // This is so that any vehicles the player is attached to
+                    // have a chance to finish updating themselves.
+                    // If we detach now, our position could be behind what it
+                    // will be at the end of the frame, and the object may appear
+                    // to teleport behind the hand when the player releases it.
+                    //StartCoroutine( LateDetach( hand ) );
+                }
+            }
+            else {
+                GrabTypes startingGrabType = hand.GetGrabStarting();
 
-                // Uncomment to detach ourselves late in the frame.
-                // This is so that any vehicles the player is attached to
-                // have a chance to finish updating themselves.
-                // If we detach now, our position could be behind what it
-                // will be at the end of the frame, and the object may appear
-                // to teleport behind the hand when the player releases it.
-                //StartCoroutine( LateDetach( hand ) );
+                if(startingGrabType == GrabTypes.Grip) {
+                    hand.DetachObject(gameObject, restoreOriginalParent);
+                }
             }
 
             if (onHeldUpdate != null)

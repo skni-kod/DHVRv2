@@ -5,14 +5,22 @@ using UnityEngine.UI;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
+public enum FireType {
+    Single,
+    Repeat,
+}
+
 [RequireComponent(typeof(Interactable))]
 public abstract class Gun : MonoBehaviour {
+    public SteamVR_Action_Boolean grabPinchAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("GrabPinch");
+    public FireType _fireType;
+
     public int _maxAmmo = 3;
     public int _maxTargetHitCount = 5;
     public bool infiniteAmmo { get; set; }
 
     public Transform _gunTip;
-   
+
     protected int _currentAmmo;
 
     protected Interactable _interactable;
@@ -33,10 +41,24 @@ public abstract class Gun : MonoBehaviour {
     }
 
     protected virtual void Update() {
-        if (_interactable.attachedToHand) {
+        if (_interactable.attachedToHand && _canFire) {
             var hand = _interactable.attachedToHand.handType;
-            if (SteamVR_Input.GetStateDown("default", "GrabPinch", hand) && _canFire) {
-                Fire();
+
+            switch (_fireType) {
+                case FireType.Repeat:
+                    if (grabPinchAction.GetState(hand)) {
+                        Fire();
+                    }
+                    break;
+                case FireType.Single:
+
+                    if (grabPinchAction.GetStateDown(hand)) {
+                        Fire();
+                    }
+                    break;
+                default:
+                    Debug.LogError("Not implemented Fire type: " + _fireType);
+                    break;
             }
         }
     }
