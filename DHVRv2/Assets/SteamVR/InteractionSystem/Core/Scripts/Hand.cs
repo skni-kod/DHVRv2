@@ -620,7 +620,8 @@ namespace Valve.VR.InteractionSystem
 
                     if (attachedObjects[index].attachedObject != null)
                     {
-                        attachedObjects[index].attachedObject.transform.parent = parentTransform;
+                        if(attachedObjects[index].interactable.isDestroying == false)
+                            attachedObjects[index].attachedObject.transform.parent = parentTransform;
                     }
                 }
 
