@@ -3,7 +3,22 @@ guid: a580377438e7b784ebd57942bc41c14f
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: natureKit-_defaultMat
+    second: {fileID: 2100000, guid: 102ba2ab8220b8346aee71e7b3b2c9ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: natureKit-leavesFall
+    second: {fileID: 2100000, guid: dfcd4679abaa893478834cc1ad6fa6ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: natureKit-leavesGreen
+    second: {fileID: 2100000, guid: 94d53a57a100d564c8b8d24e8e62574d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
