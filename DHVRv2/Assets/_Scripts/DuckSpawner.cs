@@ -4,7 +4,7 @@ using UnityEngine;
 using PathCreation;
 public class DuckSpawner : MonoBehaviour
 {
-    public GameObject ducky;
+    public GameObject duckPrefab;
     public VertexPath path;
     
 
@@ -19,13 +19,14 @@ public class DuckSpawner : MonoBehaviour
         BezierPath bezierPath = new BezierPath(positionArray, false, PathSpace.xyz);
         path = new VertexPath(bezierPath);
 
-        ducky.AddComponent<DuckMovement>();
-        DuckMovement pathy = ducky.GetComponent<DuckMovement>();
-        pathy.path = path;
-        Instantiate(ducky, transform.position, transform.rotation);
-        
-        
+        // OLD
+        // ducky.AddComponent<DuckMovement>();
+        // DuckMovement pathy = ducky.GetComponent<DuckMovement>();
+        // pathy.path = path;
+        // Instantiate(ducky, transform.position, transform.rotation);
 
-
+        // NEW
+        var duck = Instantiate(duckPrefab, positionArray[0], Quaternion.identity);
+        duck.GetComponent<DuckMovement>().path = path;
     }
 }
