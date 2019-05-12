@@ -10,11 +10,7 @@ public class DuckMovement : MonoBehaviour
     public EndOfPathInstruction endOfPathInstruction;
     public VertexPath path;
     float distanceTravelled;
-    int speed;
-    void Start()
-    {
-        speed = Random.Range(5, 10);
-    }
+    public int speed;
 
     void Update()
     {

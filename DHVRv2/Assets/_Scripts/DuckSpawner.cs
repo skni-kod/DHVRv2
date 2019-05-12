@@ -13,9 +13,12 @@ public class DuckSpawner : MonoBehaviour
     public float max_length;
     public float min_width;
     public float max_width;
+    public int speed;
+    private Vector3 x;
 
     public void Spawn()
     {
+        //Generating duck path
         var positionArray = new Vector3[6];
         positionArray[0] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
         positionArray[1] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
@@ -25,22 +28,23 @@ public class DuckSpawner : MonoBehaviour
         positionArray[5] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
         BezierPath bezierPath = new BezierPath(positionArray, false, PathSpace.xyz);
         path = new VertexPath(bezierPath);
+        //Duck creation with generated path
         duck = Instantiate(duckPrefab, positionArray[0], Quaternion.identity);
-        duck.GetComponent<DuckMovement>().path = path;   
+        duck.GetComponent<DuckMovement>().path = path;
+        duck.GetComponent<DuckMovement>().speed = speed;
+        //"optimalization" for update
+        x = path.vertices[path.NumVertices - 1];
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         Spawn();
     }
     void Update()
     {
-        if (Mathf.Abs(path.vertices[path.NumVertices - 1].x - duck.transform.position.x)  <= 0.1 && Mathf.Abs(path.vertices[path.NumVertices - 1].y - duck.transform.position.y) <= 0.1 && Mathf.Abs(path.vertices[path.NumVertices - 1].z - duck.transform.position.z) <= 0.1)
+        if (Vector3.SqrMagnitude(x - duck.transform.position) <= 0.05)
         {
             Destroy(duck);
             Destroy(this);
         }
-
-    }
+   }
 }
