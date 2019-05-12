@@ -9,14 +9,14 @@ public class Damageable : MonoBehaviour {
 
     public UnityEvent _onDeath;
 
-    private float _currentHealth;
-    private bool _isDead;
+    protected float _currentHealth;
+    protected bool _isDead;
 
-    private void Awake() {
+    protected virtual void Awake() {
         _currentHealth = _maxHealth;
     }
 
-    public void Damage(float dmg) {
+    public virtual void Damage(float dmg) {
         if(_isDead)
             return;
         
@@ -27,7 +27,7 @@ public class Damageable : MonoBehaviour {
         }
     }
 
-    void Death() {
+    public virtual void Death() {
         _isDead = true;
         
         _onDeath.Invoke();

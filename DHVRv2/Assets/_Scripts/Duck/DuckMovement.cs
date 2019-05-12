@@ -13,6 +13,12 @@ public class DuckMovement : MonoBehaviour {
 
     Vector3 _endPoint;
 
+    DuckHealth _health;
+
+    void Awake() {
+        _health = GetComponent<DuckHealth>();
+    }
+
     public void Initialize(float speed, VertexPath path) {
         _speed = speed;
         _path = path;
@@ -26,7 +32,7 @@ public class DuckMovement : MonoBehaviour {
         transform.rotation = _path.GetRotationAtDistance(_distanceTravelled, _endOfPathInstruction);
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
-            Destroy(gameObject);
+            _health.Death();
         }
     }
 }

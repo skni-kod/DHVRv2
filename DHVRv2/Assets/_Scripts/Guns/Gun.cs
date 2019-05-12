@@ -69,4 +69,5 @@ public abstract class Gun : MonoBehaviour {
     public void RefreshAmmo() {
         _currentAmmo = _maxAmmo;
     }
+
 }

@@ -39,7 +39,7 @@ public class Sniper : Gun {
             foreach (var hit in _fireResults) {
                 var damageable = hit.collider?.GetComponentInParent<Damageable>();
                 if (damageable) {
-                    damageable.Damage(1);
+                    damageable.Damage(100);
                 }
             }
         }
