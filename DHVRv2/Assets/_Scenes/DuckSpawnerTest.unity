@@ -240,7 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd002cf905da351479a4188a20b86ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ducky: {fileID: 8467053718050407153, guid: 2f6641e98de7e684f96d12e501dbe101, type: 3}
+  _duckPrefab: {fileID: 2255434229062728809, guid: 2f6641e98de7e684f96d12e501dbe101,
+    type: 3}
+  _duckMovementBox: {x: 5, y: 5, z: 5}
+  _pathControlPointCount: 5
+  _duckSpeed: 4
 --- !u!4 &178671232
 Transform:
   m_ObjectHideFlags: 0

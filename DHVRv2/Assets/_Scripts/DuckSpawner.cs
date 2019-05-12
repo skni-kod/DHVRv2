@@ -1,50 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using PathCreation;
-public class DuckSpawner : MonoBehaviour
-{
-    public GameObject duckPrefab;
-    private GameObject duck;
-    public VertexPath path;
-    public float min_height;
-    public float max_height;
-    public float min_length;
-    public float max_length;
-    public float min_width;
-    public float max_width;
-    public int speed;
-    private Vector3 x;
+using UnityEngine;
+public class DuckSpawner : MonoBehaviour {
+    public DuckMovement _duckPrefab;
+    public Vector3 _duckMovementBox;
+    public int _pathControlPointCount;
+    public float _duckSpeed;
 
-    public void Spawn()
-    {
+    public void Spawn() {
         //Generating duck path
-        var positionArray = new Vector3[6];
-        positionArray[0] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
-        positionArray[1] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
-        positionArray[2] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
-        positionArray[3] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
-        positionArray[4] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
-        positionArray[5] = new Vector3(Random.Range(-min_length, max_length), Random.Range(-min_height, max_height), Random.Range(-min_width, max_width));
+        var positionArray = new Vector3[_pathControlPointCount];
+        for (int i = 0; i < _pathControlPointCount; i++) {
+            positionArray[i] = new Vector3(Random.Range(-_duckMovementBox.x, _duckMovementBox.x),
+                Random.Range(-_duckMovementBox.y, _duckMovementBox.x),
+                Random.Range(-_duckMovementBox.z, _duckMovementBox.z)) + transform.position;
+        }
+
         BezierPath bezierPath = new BezierPath(positionArray, false, PathSpace.xyz);
-        path = new VertexPath(bezierPath);
+        var path = new VertexPath(bezierPath);
         //Duck creation with generated path
-        duck = Instantiate(duckPrefab, positionArray[0], Quaternion.identity);
-        duck.GetComponent<DuckMovement>().path = path;
-        duck.GetComponent<DuckMovement>().speed = speed;
-        //"optimalization" for update
-        x = path.vertices[path.NumVertices - 1];
+        var duck = Instantiate(_duckPrefab, positionArray[0], Quaternion.identity);
+        duck.Initialize(_duckSpeed, path);
     }
-    void Start()
-    {
+
+    void Start() {
         Spawn();
     }
-    void Update()
-    {
-        if (Vector3.SqrMagnitude(x - duck.transform.position) <= 0.05)
-        {
-            Destroy(duck);
-            Destroy(this);
-        }
-   }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position, _duckMovementBox);
+    }
 }
