@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DuckMovement : MonoBehaviour {
 
-    public EndOfPathInstruction _endOfPathInstruction;
     public float _deathDstToEndPoint;
     VertexPath _path;
     float _distanceTravelled;
@@ -28,16 +27,32 @@ public class DuckMovement : MonoBehaviour {
 
     void Update() {
         _distanceTravelled += _speed * Time.deltaTime;
-        transform.position = _path.GetPointAtDistance(_distanceTravelled, _endOfPathInstruction);
+        transform.position = _path.GetPointAtDistance(_distanceTravelled);
 
-        var forward = _path.GetDirectionAtDistance(_distanceTravelled, _endOfPathInstruction);
-        var rot = Quaternion.LookRotation(forward,Vector3.up);
+        var forward = _path.GetDirectionAtDistance(_distanceTravelled);
+        var rot = Quaternion.LookRotation(forward, Vector3.up);
 
         transform.rotation = rot;
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
             // Just for now, change to Flee later
             _health.Death();
+        }
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        const float resolution = 0.01f;
+        int stepCount = Mathf.RoundToInt(1 / resolution);
+        float percent = 0.0f;
+        var previousPoint = _path.GetPoint(percent);
+
+        for (int i = 1; i < stepCount; i++) {
+            percent = i * resolution;
+            var nextPoint = _path.GetPoint(percent);
+
+            Gizmos.DrawLine(previousPoint, nextPoint);
+            previousPoint = nextPoint;
         }
     }
 }
