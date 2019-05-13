@@ -5,14 +5,11 @@ using UnityEngine;
 public class RocketLauncher : Gun
 {
     public Rocket _rocketPrefab;
+    public float _rocketSpeed;
 
     public override void Fire()
     {
-        var rocket = Instantiate(_rocketPrefab, _gunTip.position, _gunTip.rotation);
-    }
-
-    protected override IEnumerator HandleEffects()
-    {
-        yield return null;
+        var rocket = Instantiate(_rocketPrefab, _gunTip.position, _gunTip.rotation) as Rocket;
+        rocket.Initialize(_rocketSpeed, _damage);
     }
 }

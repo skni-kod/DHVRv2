@@ -16,12 +16,13 @@ MonoBehaviour:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   _fireType: 1
+  _damage: 5
   _maxAmmo: 3
-  _maxTargetHitCount: 5
   _gunTip: {fileID: 7595347367832956806}
-  _roundsPerSecond: 20
-  _lineRenderer: {fileID: 9054195899445216261}
-  _fireRadius: 0.01
+  _fireInterval: 0.1
+  _bulletPrefab: {fileID: 3866797067896654084, guid: 422a48bdb4750a642aa9f2f394d76443,
+    type: 3}
+  _bulletSpeed: 30
 --- !u!1 &2104423738021657320
 GameObject:
   m_ObjectHideFlags: 0

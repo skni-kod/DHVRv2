@@ -11,47 +11,27 @@ public class Sniper : Gun {
 
     private float _bulletTimer;
 
-    protected override void Update(){
+    protected override void Update() {
         base.Update();
 
         _bulletTimer += Time.deltaTime;
-        if(_bulletTimer > _timeBetweenBillets){
+        if (_bulletTimer > _timeBetweenBillets) {
             _canFire = true;
         }
     }
 
     public override void Fire() {
-        if (_currentAmmo <= 0)
-            return;
 
         _bulletTimer = 0;
         _canFire = false;
 
-        StartCoroutine(HandleEffects());
-
-        if (!infiniteAmmo) {
-            _currentAmmo--;
+        RaycastHit hit;
+        var damageable = ScanHitSingleTarget(_fireRadius, out hit);
+        if (damageable) {
+            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, hit.point, _lineDisplayTime));
+        } else {
+            var endPoint = _lineStartPoint.position + _lineStartPoint.forward * 20f;
+            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, endPoint, _lineDisplayTime));
         }
-
-        Ray ray = new Ray(_gunTip.position, _gunTip.forward);
-
-        if (Physics.SphereCastNonAlloc(ray, _fireRadius, _fireResults) > 0) {
-            foreach (var hit in _fireResults) {
-                var damageable = hit.collider?.GetComponentInParent<Damageable>();
-                if (damageable) {
-                    damageable.Damage(100);
-                }
-            }
-        }
-    }
-
-    protected override IEnumerator HandleEffects() {
-        _lineRenderer.enabled = true;
-        _lineRenderer.SetPosition(0, _lineStartPoint.position);
-        _lineRenderer.SetPosition(1, _lineStartPoint.position + _gunTip.forward * 20);
-
-        yield return new WaitForSeconds(_lineDisplayTime);
-
-        _lineRenderer.enabled = false;
     }
 }

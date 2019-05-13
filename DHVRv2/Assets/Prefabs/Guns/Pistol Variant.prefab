@@ -198,8 +198,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4ce68bfc57fd554f94453cac11b3ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabPinchAction:
+    actionPath: /actions/default/in/GrabPinch
+    needsReinit: 0
+  _fireType: 0
+  _damage: 5
   _maxAmmo: 3
-  _maxTargetHitCount: 5
   _gunTip: {fileID: 1427104996847807590}
   _lineRenderer: {fileID: 5105088881230350951}
   _lineDisplayTime: 0.1

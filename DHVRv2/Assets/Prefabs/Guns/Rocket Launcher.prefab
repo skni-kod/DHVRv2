@@ -60,11 +60,12 @@ MonoBehaviour:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   _fireType: 0
+  _damage: 5
   _maxAmmo: 3
-  _maxTargetHitCount: 5
   _gunTip: {fileID: 5608186437408033888}
   _rocketPrefab: {fileID: 2798879714748986357, guid: e8539e3621356bc488adbb7abb939fb2,
     type: 3}
+  _rocketSpeed: 6
 --- !u!1 &8729514993238894198
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket Launcher
       objectReference: {fileID: 0}
+    - target: {fileID: 8012680107898038341, guid: 46bf95c6e623b0542aa834cc75ec529f,
+        type: 3}
+      propertyPath: attachmentOffset
+      value: 
+      objectReference: {fileID: 7259886231121902359}
     - target: {fileID: 8681552997491354157, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -230,11 +236,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8012680107898038341, guid: 46bf95c6e623b0542aa834cc75ec529f,
-        type: 3}
-      propertyPath: attachmentOffset
-      value: 
-      objectReference: {fileID: 7259886231121902359}
     - target: {fileID: 793480554075685047, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_Radius

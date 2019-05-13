@@ -8,34 +8,16 @@ public class Pistol : Gun {
     public float _fireRadius;
 
     public override void Fire() {
-        if (_currentAmmo <= 0)
-            return;
-
-        StartCoroutine(HandleEffects());
-
-        if (!infiniteAmmo) {
-            _currentAmmo--;
+        RaycastHit hit;
+        var damageable = ScanHitSingleTarget(_fireRadius, out hit);
+        Vector3 endPoint;
+        if (damageable) {
+            endPoint = _gunTip.position + _gunTip.forward * hit.distance;
+        } else {
+            endPoint = _gunTip.position + _gunTip.forward * 20;
         }
 
-        Ray ray = new Ray(_gunTip.position, _gunTip.forward);
+        StartCoroutine(SetLineRendererForTime(_lineRenderer, _gunTip.position, endPoint, _lineDisplayTime));
 
-        if (Physics.SphereCastNonAlloc(ray, _fireRadius, _fireResults) > 0) {
-            foreach (var hit in _fireResults) {
-                var damageable = hit.collider?.GetComponentInParent<Damageable>();
-                if (damageable) {
-                    damageable.Damage(1);
-                }
-            }
-        }
-    }
-
-    protected override IEnumerator HandleEffects() {
-        _lineRenderer.enabled = true;
-        _lineRenderer.SetPosition(0, _gunTip.position);
-        _lineRenderer.SetPosition(1, _gunTip.position + _gunTip.forward * 20);
-
-        yield return new WaitForSeconds(_lineDisplayTime);
-
-        _lineRenderer.enabled = false;
     }
 }

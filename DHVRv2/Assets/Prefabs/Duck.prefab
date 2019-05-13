@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ada6fde54e283b4c85efb888f086053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endOfPathInstruction: 2
+  _endOfPathInstruction: 0
   _deathDstToEndPoint: 0.1
 --- !u!114 &5874380438757407040
 MonoBehaviour:

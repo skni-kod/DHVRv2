@@ -243,7 +243,7 @@ MonoBehaviour:
   _duckPrefab: {fileID: 2255434229062728809, guid: 2f6641e98de7e684f96d12e501dbe101,
     type: 3}
   _duckMovementBox: {x: 5, y: 5, z: 5}
-  _pathControlPointCount: 5
+  _pathControlPointCount: 9
   _duckSpeed: 4
 --- !u!4 &178671232
 Transform:

@@ -2,26 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Rocket : MonoBehaviour {
+public class Rocket : Bullet {
     public float _explosionRadius;
     public float _explosionTime;
-    public float _rocketSpeed;
 
     public UnityEngine.Events.UnityEvent OnExplode;
 
-    Rigidbody _body;
-
-    private void Awake() {
-        _body = GetComponent<Rigidbody>();
-    }
 
     void Start() {
         Invoke("Explode", _explosionTime);
-        _body.velocity = transform.forward * _rocketSpeed;
     }
 
-    private void OnTriggerEnter(Collider other) {
+    protected override void OnTriggerEnter(Collider other) {
         Explode();
     }
 
@@ -30,9 +22,9 @@ public class Rocket : MonoBehaviour {
 
         var colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
         foreach (var collider in colliders) {
-            var damageable = collider.GetComponent<Damageable>();
+            var damageable = collider.GetComponentInParent<Damageable>();
             if (damageable) {
-                damageable.Damage(1);
+                damageable.Damage(_damage);
             }
         }
 
