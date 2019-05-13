@@ -29,9 +29,14 @@ public class DuckMovement : MonoBehaviour {
     void Update() {
         _distanceTravelled += _speed * Time.deltaTime;
         transform.position = _path.GetPointAtDistance(_distanceTravelled, _endOfPathInstruction);
-        transform.rotation = _path.GetRotationAtDistance(_distanceTravelled, _endOfPathInstruction);
+
+        var forward = _path.GetDirectionAtDistance(_distanceTravelled, _endOfPathInstruction);
+        var rot = Quaternion.LookRotation(forward,Vector3.up);
+
+        transform.rotation = rot;
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
+            // Just for now, change to Flee later
             _health.Death();
         }
     }
