@@ -13,7 +13,7 @@ public class DuckSpawner : MonoBehaviour {
         var positionArray = new Vector3[_pathControlPointCount];
         for (int i = 0; i < _pathControlPointCount; i++) {
             positionArray[i] = new Vector3(Random.Range(-_duckMovementBox.x, _duckMovementBox.x),
-                Random.Range(-_duckMovementBox.y, _duckMovementBox.x),
+                Random.Range(-_duckMovementBox.y, _duckMovementBox.y),
                 Random.Range(-_duckMovementBox.z, _duckMovementBox.z)) + transform.position;
         }
 
