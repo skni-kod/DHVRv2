@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using PathCreation;
+using RoboRyanTron.Events;
 using UnityEngine;
 
-public class DuckMovement : MonoBehaviour {
+public class DuckController : Damageable {
 
     public float _deathDstToEndPoint;
+    public GameEvent _onDuckDeath;
+
     VertexPath _path;
     float _distanceTravelled;
     float _speed;
 
     Vector3 _endPoint;
-
-    DuckHealth _health;
-
-    void Awake() {
-        _health = GetComponent<DuckHealth>();
-    }
 
     public void Initialize(float speed, VertexPath path) {
         _speed = speed;
@@ -36,11 +33,14 @@ public class DuckMovement : MonoBehaviour {
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
             // Just for now, change to Flee later
-            _health.Death();
+            Death();
         }
     }
 
     void OnDrawGizmos() {
+        if(_path == null)
+            return;
+
         Gizmos.color = Color.green;
         const float resolution = 0.01f;
         int stepCount = Mathf.RoundToInt(1 / resolution);
@@ -54,5 +54,11 @@ public class DuckMovement : MonoBehaviour {
             Gizmos.DrawLine(previousPoint, nextPoint);
             previousPoint = nextPoint;
         }
+    }
+
+    public override void Death() {
+        _onDuckDeath.Raise();
+
+        base.Death();
     }
 }

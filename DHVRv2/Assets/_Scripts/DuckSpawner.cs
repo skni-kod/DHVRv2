@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PathCreation;
 using UnityEngine;
 public class DuckSpawner : MonoBehaviour {
-    public DuckMovement _duckPrefab;
+    public DuckController _duckPrefab;
     public Vector3 _duckMovementBox;
     public int _pathControlPointCount;
     public float _duckSpeed;

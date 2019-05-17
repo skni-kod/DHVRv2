@@ -1045,7 +1045,6 @@ GameObject:
   m_Component:
   - component: {fileID: 430015464518957994}
   - component: {fileID: 2255434229062728809}
-  - component: {fileID: 5874380438757407040}
   m_Layer: 0
   m_Name: Duck
   m_TagString: Untagged
@@ -1081,26 +1080,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ada6fde54e283b4c85efb888f086053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _endOfPathInstruction: 0
-  _deathDstToEndPoint: 0.1
---- !u!114 &5874380438757407040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8467053718050407153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c7a578a0385d945a1715acb0a87f6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 1
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  _deathDstToEndPoint: 0.1
   _onDuckDeath: {fileID: 11400000, guid: 7c92eb34cd4a9654aa99f56373fa6a59, type: 2}
 --- !u!1 &8550048461731353122
 GameObject:
