@@ -7,7 +7,8 @@ using UnityEngine;
 public class DuckController : Damageable {
 
     public float _deathDstToEndPoint;
-    public GameEvent _onDuckDeath;
+    public static event System.Action<DuckController> OnDuckDeath;
+    public static event System.Action<DuckController> OnDuckFlee;
 
     VertexPath _path;
     float _distanceTravelled;
@@ -32,8 +33,8 @@ public class DuckController : Damageable {
         transform.rotation = rot;
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
-            // Just for now, change to Flee later
-            Death();
+            Destroy(gameObject);
+            OnDuckFlee?.Invoke(this);
         }
     }
 
@@ -57,7 +58,7 @@ public class DuckController : Damageable {
     }
 
     public override void Death() {
-        _onDuckDeath.Raise();
+        OnDuckDeath?.Invoke(this);
 
         base.Death();
     }

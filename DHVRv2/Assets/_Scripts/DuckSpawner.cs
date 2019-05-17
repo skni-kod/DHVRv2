@@ -8,7 +8,7 @@ public class DuckSpawner : MonoBehaviour {
     public int _pathControlPointCount;
     public float _duckSpeed;
 
-    public void Spawn() {
+    public DuckController Spawn() {
         //Generating duck path
         var positionArray = new Vector3[_pathControlPointCount];
         for (int i = 0; i < _pathControlPointCount; i++) {
@@ -22,6 +22,8 @@ public class DuckSpawner : MonoBehaviour {
         //Duck creation with generated path
         var duck = Instantiate(_duckPrefab, positionArray[0], Quaternion.identity);
         duck.Initialize(_duckSpeed, path);
+
+        return duck;
     }
 
     void Start() {
