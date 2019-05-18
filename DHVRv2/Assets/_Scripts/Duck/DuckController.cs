@@ -33,8 +33,9 @@ public class DuckController : Damageable {
         transform.rotation = rot;
 
         if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
-            Destroy(gameObject);
             OnDuckFlee?.Invoke(this);
+
+            Destroy(gameObject);
         }
     }
 

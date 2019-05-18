@@ -2082,7 +2082,6 @@ GameObject:
   m_Component:
   - component: {fileID: 572455693}
   - component: {fileID: 572455692}
-  - component: {fileID: 572455691}
   m_Layer: 0
   m_Name: DuckSpawner
   m_TagString: Untagged
@@ -2090,36 +2089,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &572455691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572455690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Events:
-  - {fileID: 11400000, guid: 7c92eb34cd4a9654aa99f56373fa6a59, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 572455692}
-        m_MethodName: Spawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &572455692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,8 +2104,6 @@ MonoBehaviour:
   _duckPrefab: {fileID: 2255434229062728809, guid: 2f6641e98de7e684f96d12e501dbe101,
     type: 3}
   _duckMovementBox: {x: 11.2, y: 5.54, z: 8.7}
-  _pathControlPointCount: 6
-  _duckSpeed: 2
 --- !u!4 &572455693
 Transform:
   m_ObjectHideFlags: 0
@@ -2974,6 +2941,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1084316586}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &842682175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842682177}
+  - component: {fileID: 842682176}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &842682176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842682175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c9937d77072a14092db167df0ab354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugFeatures: 1
+  _spawner: {fileID: 572455692}
+  _gameState: {fileID: 11400000, guid: 244eddd1178b85f4cba64aba68588b97, type: 2}
+  _difficulties:
+  - {fileID: 11400000, guid: 2070c1e4402c9ae46b33f1fd3d157549, type: 2}
+--- !u!4 &842682177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842682175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &882955720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 803423107761539868, guid: 3d43a5980d6ce0b4dae2360b47261cd2,

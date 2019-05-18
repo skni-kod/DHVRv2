@@ -5,13 +5,10 @@ using UnityEngine;
 public class DuckSpawner : MonoBehaviour {
     public DuckController _duckPrefab;
     public Vector3 _duckMovementBox;
-    public int _pathControlPointCount;
-    public float _duckSpeed;
-
-    public DuckController Spawn() {
+    public DuckController Spawn(float duckSpeed, int controlPointsCount) {
         //Generating duck path
-        var positionArray = new Vector3[_pathControlPointCount];
-        for (int i = 0; i < _pathControlPointCount; i++) {
+        var positionArray = new Vector3[controlPointsCount];
+        for (int i = 0; i < controlPointsCount; i++) {
             positionArray[i] = new Vector3(Random.Range(-_duckMovementBox.x, _duckMovementBox.x),
                 Random.Range(-_duckMovementBox.y, _duckMovementBox.y),
                 Random.Range(-_duckMovementBox.z, _duckMovementBox.z)) + transform.position;
@@ -21,13 +18,9 @@ public class DuckSpawner : MonoBehaviour {
         var path = new VertexPath(bezierPath);
         //Duck creation with generated path
         var duck = Instantiate(_duckPrefab, positionArray[0], Quaternion.identity);
-        duck.Initialize(_duckSpeed, path);
+        duck.Initialize(duckSpeed, path);
 
         return duck;
-    }
-
-    void Start() {
-        Spawn();
     }
 
     private void OnDrawGizmosSelected() {
