@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     private int _currentDifficultyIndex;
 
     int _numberOfDuckToSpawn;
+    int _ducksKilledThisRound;
 
     List<DuckController> _spawnedDucks = new List<DuckController>();
 
@@ -51,11 +52,12 @@ public class GameManager : MonoBehaviour {
         //yield return new WaitUntil(() => _gameState.gameState == GameState.MainGame);
 
         int waveCount = CurrentDifficulty.wavesDifficulty.Count;
+        _ducksKilledThisRound = 0;
 
         for (int j = 0; j < waveCount; j++) {
             var currentWaveData = CurrentDifficulty.wavesDifficulty[j];
 
-            var (duckSpeed, controlPoints, ducksCount) = CurrentDifficulty.GetDifficultyDataTuple(j);
+            var(duckSpeed, controlPoints, ducksCount) = CurrentDifficulty.GetDifficultyDataTuple(j);
 
             // Spawn duck group
             for (int i = 0; i < ducksCount; i++) {
@@ -74,6 +76,14 @@ public class GameManager : MonoBehaviour {
         }
 
         // Determine if player win or lost
+        if (_ducksKilledThisRound >= CurrentDifficulty.ducksToWinGame) {
+            // Won Game
+            // Spawn Some nice particles
+            // and duck roasting on bonfire
+            Debug.Log("Game Won");
+        } else {
+            Debug.Log("Game Lost");
+        }
 
         // Back to idle state and end routine
         _gameState.gameState = GameState.Idle;
@@ -81,6 +91,8 @@ public class GameManager : MonoBehaviour {
 
     void OnDuckDeath(DuckController duck) {
         _spawnedDucks.Remove(duck);
+
+        _ducksKilledThisRound++;
     }
 
     void OnDuckFlee(DuckController duck) {

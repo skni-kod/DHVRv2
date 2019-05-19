@@ -19,7 +19,6 @@ public class Bullet : MonoBehaviour {
     protected virtual void OnTriggerEnter(Collider other) {
         var d = other.GetComponentInParent<Damageable>();
         if (d) {
-            Debug.Log(d.name);
             d.Damage(_damage);
         }
 
