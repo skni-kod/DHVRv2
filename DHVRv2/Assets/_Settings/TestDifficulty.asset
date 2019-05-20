@@ -15,6 +15,7 @@ MonoBehaviour:
   ducksPerGroup: 1
   duckBaseSpeed: 4
   baseNumberOfControlPoints: 2
+  ducksToWinGame: 3
   wavesDifficulty:
   - duckSpeedDelta: 0
     controlPointsDelta: 0
