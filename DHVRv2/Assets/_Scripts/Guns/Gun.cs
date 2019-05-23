@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
+using TMPro;
 
 public enum FireType {
     Single,
@@ -12,9 +13,12 @@ public enum FireType {
 
 [RequireComponent(typeof(Interactable))]
 public abstract class Gun : MonoBehaviour {
+
+    public TMP_Text _ammoText;
     public SteamVR_Action_Boolean grabPinchAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("GrabPinch");
     public FireType _fireType;
     public float _damage;
+    public float _reloadTime;
 
     public int _maxAmmo = 3;
     public bool infiniteAmmo { get; set; }
@@ -26,6 +30,9 @@ public abstract class Gun : MonoBehaviour {
     protected Interactable _interactable;
 
     protected bool _canFire = true;
+
+    protected float _timerReload;
+    protected bool _needReload;
 
     protected virtual void Awake() {
         _interactable = GetComponent<Interactable>();
@@ -56,6 +63,23 @@ public abstract class Gun : MonoBehaviour {
                     Debug.LogError("Not implemented Fire type: " + _fireType);
                     break;
             }
+
+            if (!infiniteAmmo) {
+                _currentAmmo--;
+                RefreshAmmoText();
+                if (_currentAmmo == 0) {
+                    _needReload = true;
+                }
+            }
+
+            if (_needReload) {
+                _timerReload += Time.deltaTime;
+
+                if (_timerReload > _reloadTime) {
+                    RefreshAmmo();
+                    _needReload = false;
+                }
+            }
         }
     }
 
@@ -63,6 +87,10 @@ public abstract class Gun : MonoBehaviour {
 
     protected virtual bool HaveAmmo() {
         return _currentAmmo > 0 || infiniteAmmo;
+    }
+
+    public void RefreshAmmoText() {
+        _ammoText.text = string.Format("{0}/{1}", _currentAmmo, _maxAmmo);
     }
 
     protected Damageable ScanHitSingleTarget(float rayRadius, out RaycastHit hit) {
@@ -86,6 +114,7 @@ public abstract class Gun : MonoBehaviour {
 
     public void RefreshAmmo() {
         _currentAmmo = _maxAmmo;
+        RefreshAmmoText();
     }
 
     protected IEnumerator SetLineRendererForTime(LineRenderer line, Vector3 lineStart, Vector3 lineEnd, float time) {
