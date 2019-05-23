@@ -640,7 +640,7 @@ Animator:
   m_GameObject: {fileID: 4833850382509328935}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 76c5ed30bb5f7d54fa7a4640d6c12e5b, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e629e20014e404d44937a98b6a454d13, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1087,7 +1087,6 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   _deathDstToEndPoint: 0.1
-  _onDuckDeath: {fileID: 11400000, guid: 7c92eb34cd4a9654aa99f56373fa6a59, type: 2}
 --- !u!1 &8550048461731353122
 GameObject:
   m_ObjectHideFlags: 0
