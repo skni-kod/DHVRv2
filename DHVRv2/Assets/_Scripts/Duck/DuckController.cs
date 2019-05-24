@@ -6,9 +6,12 @@ using UnityEngine;
 
 public class DuckController : Damageable {
 
-    public float _deathDstToEndPoint;
+    public float _fleeDstToEndPoint;
     public static event System.Action<DuckController> OnDuckDeath;
     public static event System.Action<DuckController> OnDuckFlee;
+
+    public Vector2 _scoreMinMax;
+    public Vector2 _scoreDistThreshold;
 
     VertexPath _path;
     float _distanceTravelled;
@@ -32,7 +35,7 @@ public class DuckController : Damageable {
 
         transform.rotation = rot;
 
-        if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _deathDstToEndPoint * _deathDstToEndPoint) {
+        if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _fleeDstToEndPoint * _fleeDstToEndPoint) {
             OnDuckFlee?.Invoke(this);
 
             Destroy(gameObject);
@@ -40,7 +43,7 @@ public class DuckController : Damageable {
     }
 
     void OnDrawGizmos() {
-        if(_path == null)
+        if (_path == null)
             return;
 
         Gizmos.color = Color.green;
@@ -56,6 +59,13 @@ public class DuckController : Damageable {
             Gizmos.DrawLine(previousPoint, nextPoint);
             previousPoint = nextPoint;
         }
+    }
+
+    public int GetScore() {
+        var t = Mathf.Lerp(_scoreDistThreshold.x, _scoreDistThreshold.y, _distanceTravelled / _path.length);
+        int score = Mathf.RoundToInt(Mathf.Lerp(_scoreMinMax.x, _scoreMinMax.y, t));
+
+        return score;
     }
 
     public override void Death() {
