@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ducksPerGroup: 1
   duckBaseSpeed: 4
-  baseNumberOfControlPoints: 2
+  baseNumberOfControlPoints: 10
   ducksToWinGame: 3
   wavesDifficulty:
   - duckSpeedDelta: 0

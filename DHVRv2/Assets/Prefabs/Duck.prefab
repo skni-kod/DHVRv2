@@ -1086,7 +1086,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _deathDstToEndPoint: 0.1
+  _fleeDstToEndPoint: 0.1
+  _scoreMinMax: {x: 0, y: 0}
+  _scoreDistThreshold: {x: 0, y: 0}
 --- !u!1 &8550048461731353122
 GameObject:
   m_ObjectHideFlags: 0

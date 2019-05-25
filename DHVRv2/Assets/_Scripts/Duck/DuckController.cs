@@ -19,11 +19,15 @@ public class DuckController : Damageable {
 
     Vector3 _endPoint;
 
-    public void Initialize(float speed, VertexPath path) {
+    // Just for debug
+    BezierPath _bezier;
+
+    public void Initialize(float speed, VertexPath path, BezierPath bezier = null) {
         _speed = speed;
         _path = path;
 
         _endPoint = path.vertices[path.NumVertices - 1];
+        _bezier = bezier;
     }
 
     void Update() {
@@ -58,6 +62,15 @@ public class DuckController : Damageable {
 
             Gizmos.DrawLine(previousPoint, nextPoint);
             previousPoint = nextPoint;
+        }
+
+        if (_bezier != null) {
+            for (int i = 0; i < _bezier.NumPoints; i++) {
+                if (i % 4 == 0) {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawWireSphere(_bezier[i], 0.1f);
+                }
+            }
         }
     }
 

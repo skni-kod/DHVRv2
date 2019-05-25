@@ -12,7 +12,6 @@ public class ScoreManager : MonoBehaviour {
     private const string keyPrefix = "Score";
 
     public int _keepedScoreCount = 10;
-    public int _scorePerDuck;
     public TMP_Text _scoreListText;
     
     private int _currentScore;
@@ -59,7 +58,7 @@ public class ScoreManager : MonoBehaviour {
         
         var builder = new StringBuilder();
         for (int i = 0; i < _keepedScoreCount; i++) {
-            builder.Append($"{i + 1}. Score: {_scoresData[i].score} Round: {_scoresData[i].round}\n");
+            builder.Append($"{i + 1}. Score: {_scoresData[i].score}\n");
         }
 
         _scoreListText.text = builder.ToString();
@@ -68,7 +67,6 @@ public class ScoreManager : MonoBehaviour {
     public void SaveScore() {
         var scoreData = new ScoreData() {
             name = "test1",
-            round = 0,
             score = _currentScore,
         };
         
@@ -92,7 +90,6 @@ public class ScoreManager : MonoBehaviour {
     [Serializable]
     struct ScoreData {
         public string name;
-        public int round;
         public int score;
     }
 }
