@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17606597, g: 0.2448775, b: 0.35198748, a: 1}
+  m_IndirectSpecularColor: {r: 0.17655084, g: 0.24446009, b: 0.3418497, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1307,6 +1307,9 @@ GameObject:
   m_Component:
   - component: {fileID: 86527722}
   - component: {fileID: 86527721}
+  - component: {fileID: 86527725}
+  - component: {fileID: 86527724}
+  - component: {fileID: 86527723}
   m_Layer: 0
   m_Name: END GAME HANDLER
   m_TagString: Untagged
@@ -1332,6 +1335,37 @@ MonoBehaviour:
   - {fileID: 671755666}
   - {fileID: 78570341}
   _friedDucks: []
+  _sunLight: {fileID: 1474272320}
+  _dayLightData:
+    rotation: {x: 29.67717, y: 223.35886, z: 180}
+    intensity: 1
+  _eveningLightData:
+    rotation: {x: 348.8477, y: 235.26167, z: 163.10968}
+    intensity: 0.18
+  _lightAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &86527722
 Transform:
   m_ObjectHideFlags: 0
@@ -1346,6 +1380,96 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &86527723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86527720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 4c66671c179cbd040a94ce22fa5c5352, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 86527721}
+        m_MethodName: GameLost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &86527724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86527720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: c97a206251dbf284397fcacc0f7fe9b8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 86527721}
+        m_MethodName: GameReset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &86527725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86527720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e839e4c12473014b9b3d3faccc0f61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: 250a474264831be47b6c7c16f8e44b77, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 86527721}
+        m_MethodName: GameWon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &87959309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6403,11 +6527,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c9937d77072a14092db167df0ab354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugFeatures: 1
-  _OnGameReset: {fileID: 0}
-  _OnGameStart: {fileID: 0}
-  _OnGameWin: {fileID: 0}
-  _OnGameLost: {fileID: 0}
+  _OnGameReset: {fileID: 11400000, guid: c97a206251dbf284397fcacc0f7fe9b8, type: 2}
+  _OnGameStart: {fileID: 11400000, guid: 2dacab99cfd4c7e4ba4e4f7d513b664b, type: 2}
+  _OnGameWin: {fileID: 11400000, guid: 250a474264831be47b6c7c16f8e44b77, type: 2}
+  _OnGameLost: {fileID: 11400000, guid: 4c66671c179cbd040a94ce22fa5c5352, type: 2}
   _spawner: {fileID: 2079308906}
   _gameState: {fileID: 11400000, guid: 244eddd1178b85f4cba64aba68588b97, type: 2}
   _difficulties:
@@ -17846,7 +17969,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0.10040315, y: NaN, z: NaN, w: 0}
+  m_BoundingSphereOverride: {x: 1.2966e-41, y: 1.05e-43, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -17857,13 +17980,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474272319}
-  m_LocalRotation: {x: 0.42273486, y: -0.23682657, z: -0.22504905, w: 0.84531736}
+  m_LocalRotation: {x: 0.8982754, y: 0.094605476, z: -0.35709363, w: 0.23798187}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 447140137}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 37.452003, y: -48.076004, z: 672.988}
+  m_LocalEulerAnglesHint: {x: 191.15201, y: 55.261993, z: -16.890015}
 --- !u!1001 &1488547803
 PrefabInstance:
   m_ObjectHideFlags: 0
