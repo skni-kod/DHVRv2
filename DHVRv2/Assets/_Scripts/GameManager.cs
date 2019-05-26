@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
     int _numberOfDuckToSpawn;
     int _ducksKilledThisRound;
+    int _ducksMissedThisRound;
 
     List<DuckController> _spawnedDucks = new List<DuckController>();
 
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour {
         int waveCount = CurrentDifficulty.wavesDifficulty.Count;
         _ducksKilledThisRound = 0;
 
+        bool lost = false;
+
         for (int j = 0; j < waveCount; j++) {
             var currentWaveData = CurrentDifficulty.wavesDifficulty[j];
 
@@ -85,15 +88,25 @@ public class GameManager : MonoBehaviour {
 
                 if (_numberOfDuckToSpawn == 0)
                     break;
-
             }
 
             // wait until all ducks fleed or destroyed
             yield return new WaitUntil(() => _spawnedDucks.Count == 0);
+
+            // check if lost game
+            if (_ducksMissedThisRound >= CurrentDifficulty.maxMissedDucks) {
+                lost = true;
+                break;
+            }
         }
 
         // Determine if player win or lost
-        if (_ducksKilledThisRound >= CurrentDifficulty.ducksToWinGame) {
+        if (lost) {
+            Debug.Log("Game Lost");
+            _OnGameLost.Raise();
+
+            _gameState.gameState = GameState.Loose;
+        } else {
             // Won Game
             // Spawn Some nice particles
             // and duck roasting on bonfire
@@ -101,11 +114,6 @@ public class GameManager : MonoBehaviour {
             _OnGameWin.Raise();
 
             _gameState.gameState = GameState.Win;
-        } else {
-            Debug.Log("Game Lost");
-            _OnGameLost.Raise();
-
-            _gameState.gameState = GameState.Loose;
         }
 
         // Back to idle state and end routine
@@ -120,5 +128,7 @@ public class GameManager : MonoBehaviour {
 
     void OnDuckFlee(DuckController duck) {
         _spawnedDucks.Remove(duck);
+
+        _ducksMissedThisRound++;
     }
 }

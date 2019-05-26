@@ -7,7 +7,7 @@ public class DifficultyData : ScriptableObject {
     public int ducksPerGroup;
     public float duckBaseSpeed;
     public int baseNumberOfControlPoints;
-    public int ducksToWinGame;
+    public int maxMissedDucks;
     public List<WaveData> wavesDifficulty;
 
     [System.Serializable]
