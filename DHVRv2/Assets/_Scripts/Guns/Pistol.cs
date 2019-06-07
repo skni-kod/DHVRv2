@@ -11,13 +11,15 @@ public class Pistol : Gun {
         RaycastHit hit;
         var damageable = ScanHitSingleTarget(_fireRadius, out hit);
         Vector3 endPoint;
-        if (damageable) {
+        //endPoint = _gunTip.position + _gunTip.forward * hit.distance;
+
+        if (hit.collider != null) {
             endPoint = _gunTip.position + _gunTip.forward * hit.distance;
         } else {
             endPoint = _gunTip.position + _gunTip.forward * 20;
         }
 
-        StartCoroutine(SetLineRendererForTime(_lineRenderer, _gunTip.position, endPoint, _lineDisplayTime));
+        StartCoroutine(SetLineRendererForTime(_lineRenderer, _gunTip.position, endPoint, _lineDisplayTime, _fireRadius));
 
     }
 }

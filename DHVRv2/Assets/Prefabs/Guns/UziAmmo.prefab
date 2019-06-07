@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 305099417950805040}
   - component: {fileID: 3187434849688835722}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 305099417950805042}
   - component: {fileID: 305099417950002192}
   - component: {fileID: 305099417949036240}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh1_Group2_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 305099417950805044}
   - component: {fileID: 305099417950002194}
   - component: {fileID: 305099417949036242}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh2_Group3_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5960447550961204075}
   - component: {fileID: 7170706412596764135}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 551972706255341150}
   - component: {fileID: 8101182462604688575}
   - component: {fileID: 8055132112257471787}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5100,7 +5100,7 @@ GameObject:
   - component: {fileID: 4420509318155942763}
   - component: {fileID: 3950787590729774296}
   - component: {fileID: 3866797067896654084}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UziAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

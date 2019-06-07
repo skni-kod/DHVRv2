@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RoboRyanTron.Variables;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ScoreManager : MonoBehaviour {
     private const string keyPrefix = "Score";
 
     public int _keepedScoreCount = 10;
     public TMP_Text _scoreListText;
-    
+
     private int _currentScore;
 
     private List<ScoreData> _scoresData = new List<ScoreData>();
-    
-    
+
     private void Awake() {
         DuckController.OnDuckDeath += OnDuckKill;
     }
@@ -38,14 +37,13 @@ public class ScoreManager : MonoBehaviour {
             if (PlayerPrefs.HasKey(key)) {
                 var str = PlayerPrefs.GetString(key);
                 var data = JsonUtility.FromJson<ScoreData>(str);
-                
+
                 _scoresData.Add(data);
-            }
-            else {
+            } else {
                 _scoresData.Add(new ScoreData());
             }
         }
-        
+
         UpdateText();
     }
 
@@ -53,9 +51,12 @@ public class ScoreManager : MonoBehaviour {
         _currentScore = 0;
     }
 
+    public int GetScore() {
+        return _currentScore;
+    }
     void UpdateText() {
         _scoresData = _scoresData.OrderByDescending(d => d.score).ToList();
-        
+
         var builder = new StringBuilder();
         for (int i = 0; i < _keepedScoreCount; i++) {
             builder.Append($"{i + 1}. Score: {_scoresData[i].score}\n");
@@ -69,7 +70,7 @@ public class ScoreManager : MonoBehaviour {
             name = "test1",
             score = _currentScore,
         };
-        
+
         _scoresData.Add(scoreData);
         _scoresData = _scoresData.OrderByDescending(d => d.score).ToList();
 
@@ -77,16 +78,16 @@ public class ScoreManager : MonoBehaviour {
             var key = keyPrefix + i;
 
             var json = JsonUtility.ToJson(_scoresData[i]);
-        
+
             //Debug.Log($"Saving: {json}");
-        
+
             PlayerPrefs.SetString(key, json);
         }
 
         PlayerPrefs.Save();
         UpdateText();
     }
-    
+
     [Serializable]
     struct ScoreData {
         public string name;

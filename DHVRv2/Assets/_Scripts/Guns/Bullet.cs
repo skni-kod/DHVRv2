@@ -22,6 +22,12 @@ public class Bullet : MonoBehaviour {
             d.Damage(_damage);
         }
 
+        var body = other.GetComponentInParent<Rigidbody>();
+        if (body) {
+            var dir = other.transform.position - transform.position;
+            body.AddForceAtPosition(dir.normalized * 5f, transform.position, ForceMode.Impulse);
+        }
+
         Destroy(gameObject);
     }
 }

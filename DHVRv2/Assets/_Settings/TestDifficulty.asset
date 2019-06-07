@@ -14,18 +14,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ducksPerGroup: 1
   duckBaseSpeed: 4
-  baseNumberOfControlPoints: 10
-  ducksToWinGame: 3
+  baseNumberOfControlPoints: 8
+  maxMissedDucks: 6
   wavesDifficulty:
   - duckSpeedDelta: 0
     controlPointsDelta: 0
     additionalDucks: 0
   - duckSpeedDelta: 0
-    controlPointsDelta: 2
+    controlPointsDelta: 0
+    additionalDucks: 0
+  - duckSpeedDelta: 0
+    controlPointsDelta: 0
+    additionalDucks: 0
+  - duckSpeedDelta: 0.5
+    controlPointsDelta: 0
     additionalDucks: 1
-  - duckSpeedDelta: 0
+  - duckSpeedDelta: 0.5
     controlPointsDelta: 0
-    additionalDucks: 0
-  - duckSpeedDelta: 0
+    additionalDucks: 1
+  - duckSpeedDelta: 0.5
     controlPointsDelta: 0
-    additionalDucks: 0
+    additionalDucks: 1
+  - duckSpeedDelta: 0.5
+    controlPointsDelta: 0
+    additionalDucks: 1
+  - duckSpeedDelta: 0.7
+    controlPointsDelta: 0
+    additionalDucks: 1
+  - duckSpeedDelta: 0.7
+    controlPointsDelta: 0
+    additionalDucks: 1
+  - duckSpeedDelta: 0.7
+    controlPointsDelta: 0
+    additionalDucks: 1

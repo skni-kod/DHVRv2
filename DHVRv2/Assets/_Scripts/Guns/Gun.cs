@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
-using TMPro;
 
 public enum FireType {
     Single,
@@ -16,6 +16,7 @@ public abstract class Gun : MonoBehaviour {
 
     public TMP_Text _ammoText;
     public SteamVR_Action_Boolean grabPinchAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("GrabPinch");
+    public LayerMask _hittableMask;
     public FireType _fireType;
     public float _damage;
     public float _reloadTime;
@@ -24,6 +25,7 @@ public abstract class Gun : MonoBehaviour {
     public bool infiniteAmmo { get; set; }
 
     public Transform _gunTip;
+    public LineRenderer _guideLine;
 
     protected int _currentAmmo;
 
@@ -34,13 +36,15 @@ public abstract class Gun : MonoBehaviour {
     protected float _timerReload;
     protected bool _needReload;
 
+    private float _hitRadius;
+
     protected virtual void Awake() {
         _interactable = GetComponent<Interactable>();
     }
 
     protected virtual void Start() {
         RefreshAmmo();
-        infiniteAmmo = true;
+        infiniteAmmo = false;
     }
 
     protected virtual void Update() {
@@ -51,34 +55,46 @@ public abstract class Gun : MonoBehaviour {
                 case FireType.Repeat:
                     if (grabPinchAction.GetState(hand)) {
                         Fire();
+
+                        if (!infiniteAmmo) {
+                            _currentAmmo--;
+                            RefreshAmmoText();
+                            if (_currentAmmo == 0) {
+                                _needReload = true;
+                            }
+                        }
                     }
                     break;
                 case FireType.Single:
 
                     if (grabPinchAction.GetStateDown(hand)) {
                         Fire();
+
+                        if (!infiniteAmmo) {
+                            _currentAmmo--;
+                            RefreshAmmoText();
+                            if (_currentAmmo == 0) {
+                                _needReload = true;
+                            }
+                        }
                     }
                     break;
                 default:
                     Debug.LogError("Not implemented Fire type: " + _fireType);
                     break;
             }
+        }
 
-            if (!infiniteAmmo) {
-                _currentAmmo--;
-                RefreshAmmoText();
-                if (_currentAmmo == 0) {
-                    _needReload = true;
-                }
-            }
+        if (_needReload) {
+            _timerReload += Time.deltaTime;
 
-            if (_needReload) {
-                _timerReload += Time.deltaTime;
+            _ammoText.text = "Reloading...";
 
-                if (_timerReload > _reloadTime) {
-                    RefreshAmmo();
-                    _needReload = false;
-                }
+            if (_timerReload > _reloadTime) {
+                RefreshAmmo();
+                _needReload = false;
+
+                _timerReload = 0f;
             }
         }
     }
@@ -95,12 +111,19 @@ public abstract class Gun : MonoBehaviour {
 
     protected Damageable ScanHitSingleTarget(float rayRadius, out RaycastHit hit) {
         Ray ray = new Ray(_gunTip.position, _gunTip.forward);
-        if (Physics.SphereCast(ray, rayRadius, out hit)) {
+        _hitRadius = rayRadius;
+
+        if (Physics.SphereCast(ray, rayRadius, out hit, float.PositiveInfinity, _hittableMask)) {
             if (hit.collider) {
                 var damageable = hit.collider.GetComponentInParent<Damageable>();
                 if (damageable) {
                     damageable.Damage(_damage);
                     return damageable;
+                }
+
+                var body = hit.collider.GetComponentInParent<Rigidbody>();
+                if (body) {
+                    body.AddForceAtPosition(ray.direction * 5f, hit.point, ForceMode.Impulse);
                 }
             }
         }
@@ -117,14 +140,28 @@ public abstract class Gun : MonoBehaviour {
         RefreshAmmoText();
     }
 
-    protected IEnumerator SetLineRendererForTime(LineRenderer line, Vector3 lineStart, Vector3 lineEnd, float time) {
+    protected IEnumerator SetLineRendererForTime(LineRenderer line, Vector3 lineStart, Vector3 lineEnd, float time, float? radius = null) {
         line.enabled = true;
         line.SetPosition(0, lineStart);
         line.SetPosition(1, lineEnd);
 
+        if (radius.HasValue) {
+            line.startWidth = radius.Value;
+            line.endWidth = radius.Value;
+        }   
+
         yield return new WaitForSeconds(time);
 
         line.enabled = false;
+    }
+
+    public void SetGuideLineActive(bool active) {
+        _guideLine.gameObject.SetActive(active);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(_gunTip.position, _hitRadius);
     }
 
 }

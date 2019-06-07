@@ -27,11 +27,11 @@ public class Sniper : Gun {
 
         RaycastHit hit;
         var damageable = ScanHitSingleTarget(_fireRadius, out hit);
-        if (damageable) {
-            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, hit.point, _lineDisplayTime));
+        if (hit.collider != null) {
+            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, hit.point, _lineDisplayTime, _fireRadius));
         } else {
             var endPoint = _lineStartPoint.position + _lineStartPoint.forward * 20f;
-            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, endPoint, _lineDisplayTime));
+            StartCoroutine(SetLineRendererForTime(_lineRenderer, _lineStartPoint.position, endPoint, _lineDisplayTime, _fireRadius));
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6310872505857316500}
   - component: {fileID: 876350818551046863}
   - component: {fileID: 6085941440789378130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4693,7 +4693,7 @@ ParticleSystem:
 --- !u!199 &6085941440789378130
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4763,7 +4763,7 @@ GameObject:
   - component: {fileID: 8526320106716381184}
   - component: {fileID: 8526320106717675554}
   - component: {fileID: 8526320106718675682}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mesh1_Group1_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4845,7 +4845,7 @@ GameObject:
   - component: {fileID: 2798879714748986357}
   - component: {fileID: 5359250519293733226}
   - component: {fileID: 2972082123995176210}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4898,7 +4898,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionRadius: 5
   _explosionTime: 10
-  _rocketSpeed: 10
   OnExplode:
     m_PersistentCalls:
       m_Calls:

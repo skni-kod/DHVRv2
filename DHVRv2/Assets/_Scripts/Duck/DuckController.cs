@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using PathCreation;
 using RoboRyanTron.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DuckController : Damageable {
 
-    public float _fleeDstToEndPoint;
     public static event System.Action<DuckController> OnDuckDeath;
     public static event System.Action<DuckController> OnDuckFlee;
+    public UnityEvent _OnDuckFlee;
+
+    public ParticleSystem _startToFleeParticle;
+    [Range(0, 1)]
+    public float _startToFleePercent;
 
     public Vector2 _scoreMinMax;
     public Vector2 _scoreDistThreshold;
+
+    public TMPro.TMP_Text _scoreText;
 
     VertexPath _path;
     float _distanceTravelled;
@@ -32,18 +39,25 @@ public class DuckController : Damageable {
 
     void Update() {
         _distanceTravelled += _speed * Time.deltaTime;
-        transform.position = _path.GetPointAtDistance(_distanceTravelled);
 
+        var travelPercent = _distanceTravelled / _path.length;
+        if (travelPercent > _startToFleePercent) {
+            _startToFleeParticle.gameObject.SetActive(true);
+        }
+
+        if (travelPercent >= 1f) {
+            OnDuckFlee?.Invoke(this);
+            _OnDuckFlee.Invoke();
+
+            Destroy(gameObject);
+            return;
+        }
+
+        transform.position = _path.GetPointAtDistance(_distanceTravelled);
         var forward = _path.GetDirectionAtDistance(_distanceTravelled);
         var rot = Quaternion.LookRotation(forward, Vector3.up);
 
         transform.rotation = rot;
-
-        if (Vector3.SqrMagnitude(_endPoint - transform.position) <= _fleeDstToEndPoint * _fleeDstToEndPoint) {
-            OnDuckFlee?.Invoke(this);
-
-            Destroy(gameObject);
-        }
     }
 
     void OnDrawGizmos() {
@@ -75,7 +89,16 @@ public class DuckController : Damageable {
     }
 
     public int GetScore() {
-        var t = Mathf.Lerp(_scoreDistThreshold.x, _scoreDistThreshold.y, _distanceTravelled / _path.length);
+        var dstPercent = _distanceTravelled / _path.length;
+        float t = 0;
+        if (dstPercent < _scoreDistThreshold.x) {
+            t = 1;
+        } else if (dstPercent > _scoreDistThreshold.y) {
+            t = 0;
+        } else {
+            t = Mathf.Lerp(_scoreDistThreshold.y, _scoreDistThreshold.x, _distanceTravelled / _path.length);
+        }
+
         int score = Mathf.RoundToInt(Mathf.Lerp(_scoreMinMax.x, _scoreMinMax.y, t));
 
         return score;
@@ -83,6 +106,15 @@ public class DuckController : Damageable {
 
     public override void Death() {
         OnDuckDeath?.Invoke(this);
+
+        _scoreText.transform.SetParent(null, true);
+        _scoreText.transform.rotation = Quaternion.identity;
+        _scoreText.transform.position = transform.position;
+
+        _scoreText.gameObject.SetActive(true);
+        _scoreText.text = GetScore().ToString();
+
+        Destroy(_scoreText.gameObject, 3f);
 
         base.Death();
     }

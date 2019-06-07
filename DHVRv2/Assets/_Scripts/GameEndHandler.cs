@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class LightDayData {
@@ -35,6 +36,9 @@ public class GameEndHandler : MonoBehaviour {
     public void GameLost() {
 
         //Do something I guess...?
+
+        StartCoroutine(SunAnimation(true));
+
     }
 
     public void GameReset() {
@@ -81,9 +85,10 @@ public class GameEndHandler : MonoBehaviour {
 
             percent += 1 / animationTime * Time.deltaTime;
 
-            Debug.Log(percent);
+            //Debug.Log(percent);
             yield return null;
         }
+
     }
 
 #if UNITY_EDITOR
