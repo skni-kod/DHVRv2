@@ -15,6 +15,7 @@ public class Uzi : Gun {
         _fireTimer += Time.deltaTime;
         if (_fireTimer > _fireInterval) {
             _canFire = true;
+            _fireTimer = 0.0f;
         }
     }
 

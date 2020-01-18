@@ -38,6 +38,10 @@ public abstract class Gun : MonoBehaviour {
 
     private float _hitRadius;
 
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    
+
     protected virtual void Awake() {
         _interactable = GetComponent<Interactable>();
     }
@@ -45,6 +49,8 @@ public abstract class Gun : MonoBehaviour {
     protected virtual void Start() {
         RefreshAmmo();
         infiniteAmmo = false;
+        startRotation = transform.rotation;
+        startPosition = transform.position;
     }
 
     protected virtual void Update() {
@@ -54,6 +60,7 @@ public abstract class Gun : MonoBehaviour {
             switch (_fireType) {
                 case FireType.Repeat:
                     if (grabPinchAction.GetState(hand)) {
+                        _canFire = false;
                         Fire();
 
                         if (!infiniteAmmo) {
@@ -162,6 +169,15 @@ public abstract class Gun : MonoBehaviour {
     private void OnDrawGizmos() {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(_gunTip.position, _hitRadius);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            transform.position = startPosition;
+            transform.rotation = startRotation;
+        }
     }
 
 }

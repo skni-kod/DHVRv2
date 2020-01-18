@@ -16,6 +16,9 @@ MonoBehaviour:
   grabPinchAction:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
+  _hittableMask:
+    serializedVersion: 2
+    m_Bits: 0
   _fireType: 1
   _damage: 5
   _reloadTime: 1
@@ -120,6 +123,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -166,8 +170,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 0/20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -300,6 +302,11 @@ PrefabInstance:
     - target: {fileID: 2714468699272459, guid: 46bf95c6e623b0542aa834cc75ec529f, type: 3}
       propertyPath: m_Name
       value: Uzi
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217820744716589472, guid: 46bf95c6e623b0542aa834cc75ec529f,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8681552997491354157, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
@@ -531,11 +538,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.0365
       objectReference: {fileID: 0}
-    - target: {fileID: 1330759534925075350, guid: 46bf95c6e623b0542aa834cc75ec529f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7093441387035341242, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_Convex
@@ -546,6 +548,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300002, guid: 1ebda001864631e45b6719aa437174a6, type: 3}
+    - target: {fileID: 1330759534925075350, guid: 46bf95c6e623b0542aa834cc75ec529f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 793480554075685047, guid: 46bf95c6e623b0542aa834cc75ec529f,
         type: 3}
       propertyPath: m_Radius
