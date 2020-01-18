@@ -5,18 +5,15 @@ using RoboRyanTron.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DuckController : Damageable {
+public class BigDuckController : Damageable
+{
 
-    public static event System.Action<DuckController> OnDuckDeath;
-    public static event System.Action<DuckController> OnDuckFlee;
-    public UnityEvent _OnDuckFlee;
+    public static event System.Action<BigDuckController> OnBigDuckDeath;
 
-    public ParticleSystem _startToFleeParticle;
     [Range(0, 1)]
     public float _startToFleePercent;
 
-    public Vector2 _scoreMinMax;
-    public Vector2 _scoreDistThreshold;
+    public int _score;
 
     public TMPro.TMP_Text _scoreText;
 
@@ -24,12 +21,16 @@ public class DuckController : Damageable {
     float _distanceTravelled;
     float _speed;
 
+    bool _direction = true;
+
+
     Vector3 _endPoint;
 
     // Just for debug
     BezierPath _bezier;
 
-    public void Initialize(float speed, VertexPath path, BezierPath bezier = null) {
+    public void Initialize(float speed, VertexPath path, BezierPath bezier = null)
+    {
         _speed = speed;
         _path = path;
 
@@ -37,28 +38,27 @@ public class DuckController : Damageable {
         _bezier = bezier;
     }
 
-    void Update() {
-        
-        _distanceTravelled += _speed * Time.deltaTime;
+    void Update()
+    {
+        float actualSpeed = _direction ? _speed : -_speed;
+        _distanceTravelled += actualSpeed * Time.deltaTime;
 
         var travelPercent = _distanceTravelled / _path.length;
-        if (travelPercent > _startToFleePercent) {
-            _startToFleeParticle.gameObject.SetActive(true);
-        }
 
-        if (travelPercent >= 1f) {
-            
-            return;
+        if (travelPercent >= 1f || travelPercent <= 0.0f)
+        {
+            _direction = !_direction;
         }
 
         transform.position = _path.GetPointAtDistance(_distanceTravelled);
         var forward = _path.GetDirectionAtDistance(_distanceTravelled);
-        var rot = Quaternion.LookRotation(forward, Vector3.up);
+        var rot = Quaternion.LookRotation(_direction ? forward : -forward, Vector3.up);
 
         transform.rotation = rot;
     }
 
-    void OnDrawGizmos() {
+    void OnDrawGizmos()
+    {
         if (_path == null)
             return;
 
@@ -68,7 +68,8 @@ public class DuckController : Damageable {
         float percent = 0.0f;
         var previousPoint = _path.GetPoint(percent);
 
-        for (int i = 1; i < stepCount; i++) {
+        for (int i = 1; i < stepCount; i++)
+        {
             percent = i * resolution;
             var nextPoint = _path.GetPoint(percent);
 
@@ -76,9 +77,12 @@ public class DuckController : Damageable {
             previousPoint = nextPoint;
         }
 
-        if (_bezier != null) {
-            for (int i = 0; i < _bezier.NumPoints; i++) {
-                if (i % 4 == 0) {
+        if (_bezier != null)
+        {
+            for (int i = 0; i < _bezier.NumPoints; i++)
+            {
+                if (i % 4 == 0)
+                {
                     Gizmos.color = Color.red;
                     Gizmos.DrawWireSphere(_bezier[i], 0.1f);
                 }
@@ -86,24 +90,14 @@ public class DuckController : Damageable {
         }
     }
 
-    public int GetScore() {
-        var dstPercent = _distanceTravelled / _path.length;
-        float t = 0;
-        if (dstPercent < _scoreDistThreshold.x) {
-            t = 1;
-        } else if (dstPercent > _scoreDistThreshold.y) {
-            t = 0;
-        } else {
-            t = Mathf.Lerp(_scoreDistThreshold.y, _scoreDistThreshold.x, _distanceTravelled / _path.length);
-        }
-
-        int score = Mathf.RoundToInt(Mathf.Lerp(_scoreMinMax.x, _scoreMinMax.y, t));
-
-        return score;
+    public int GetScore()
+    {
+        return _score;
     }
 
-    public override void Death() {
-        OnDuckDeath?.Invoke(this);
+    public override void Death()
+    {
+        OnBigDuckDeath?.Invoke(this);
 
         _scoreText.transform.SetParent(null, true);
         _scoreText.transform.rotation = Quaternion.identity;
@@ -111,6 +105,8 @@ public class DuckController : Damageable {
 
         _scoreText.gameObject.SetActive(true);
         _scoreText.text = GetScore().ToString();
+
+        OnBigDuckDeath?.Invoke(this);
 
         Destroy(_scoreText.gameObject, 3f);
 

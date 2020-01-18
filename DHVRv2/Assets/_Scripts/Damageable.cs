@@ -9,7 +9,7 @@ public class Damageable : MonoBehaviour {
 
     public UnityEvent _onDeath;
 
-    protected float _currentHealth;
+    public float _currentHealth;
     protected bool _isDead;
 
     protected virtual void Awake() {
@@ -17,7 +17,7 @@ public class Damageable : MonoBehaviour {
     }
 
     public virtual void Damage(float dmg) {
-        if(_isDead)
+        if (_isDead)
             return;
         
         _currentHealth -= dmg;
